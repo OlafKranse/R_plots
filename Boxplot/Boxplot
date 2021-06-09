@@ -1,0 +1,34 @@
+
+
+library(ggplot2)
+library(svglite)
+files = c("book1.csv")
+
+
+
+
+
+
+for (things in files){
+  df <- read.csv(things)
+  #df$group <- as.character(df$group ) #this is to reorder
+  #df$group  <- factor(df$group, levels=unique(df$group )) #also reorder x axis
+  df$group <- as.character(df$group) #this is to reorder
+  df$group <- factor(df$group, levels=unique(df$group)) #also reorder x axis
+  
+  
+  p <-ggplot(data= df, aes(x=group, y=data, fill = group))+
+    geom_boxplot()+
+    theme_bw()+ #ggtitle(paste(lines, moreguides, sep = ""))+
+    theme(legend.title = element_blank(), legend.position = "none")+
+    xlab("") + ylab("")
+    #( aes(x=group, ymin=averages-stdev, ymax=averages+stdev), width=0.4, alpha=0.9, size=0.5)
+  #scale_fill_manual(values=c("#1a1a18", "#b1b2b3", "#FF0D00"))
+  
+  
+  tiff_name = paste(things,".svg", sep="") 
+  
+  ggsave(tiff_name, plot = p, dpi = 900,limitsize = TRUE, units = c("in", "cm", "mm"), height = 3, width = 3)
+  res.aov2 <- aov(data ~ group, data = df)
+  write.csv(as.matrix(summary(res.aov2)), file = paste(tiff_name,"stat.csv",sep = ""), na = "")
+}
