@@ -1,0 +1,15 @@
+library(tidyverse)
+library(ggpubr)
+library(dplyr)
+library(reshape2)
+
+
+violin_male <- ggplot(data = df, aes(x = Line, y = Male, fill = Line)) +
+  geom_violin()+geom_boxplot(width=0.1, fill="white")+
+  geom_dotplot(binaxis='y', stackdir='center', dotsize=0.5, fill="white")+
+  #geom_jitter(shape=16, position=position_jitter(0.2))+
+  scale_fill_brewer(palette="Dark2")+ ggtitle("Male")+
+  labs(y="Number of nematodes per plate", x = "")
+  
+  
+  
