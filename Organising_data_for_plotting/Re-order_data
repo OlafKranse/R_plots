@@ -1,0 +1,5 @@
+  df <- read.csv(things)
+  #df$group <- as.character(df$group ) #this is to reorder
+  #df$group  <- factor(df$group, levels=unique(df$group )) #also reorder x axis
+  df$group <- as.character(df$group) #this is to reorder
+  df$group <- factor(df$group, levels=unique(df$group)) #also reorder x axis
